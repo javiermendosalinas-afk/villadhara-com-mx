@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /material/
+Sitemap: https://villadhara.com.mx/sitemap.xml
