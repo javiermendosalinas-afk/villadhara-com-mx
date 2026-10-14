@@ -1,0 +1,20 @@
+name: Juntar fotos de Villa Dhara
+on:
+  workflow_dispatch:
+  push:
+    paths: [herramientas/traer_fotos_web.py, .github/workflows/fotos.yml]
+permissions:
+  contents: write
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pillow==10.4.0
+      - run: python -u herramientas/traer_fotos_web.py
+      - run: |
+          git config user.email "claude@acierta.pro"; git config user.name "Fotos automaticas"
+          git add material; git diff --cached --quiet || (git commit -m "Fotos de Villa Dhara" && git push)
